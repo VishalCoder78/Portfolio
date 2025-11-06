@@ -137,15 +137,15 @@ const App = () => {
                 Get In Touch
               </button>
               <div className="flex gap-3">
-                <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-600 transition">
+                <a href='https://www.instagram.com/igv1.shal/?igsh=MThkOG9oMTR5anR3#' target='_blank' className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-600 transition">
                   <Instagram />
-                </div>
-                <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-600 transition">
+                </a>
+                <a href='https://www.youtube.com/@Vizmer' target='_blank' className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-600 transition">
                   <Youtube />
-                </div>
-                <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-600 transition">
+                </a>
+                <a href='mailto:vishalcoder78@gmail.com' target='_blank' className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-600 transition">
                   <Mail />
-                </div>
+                </a>
               </div>
             </div>
           </div>
@@ -162,7 +162,7 @@ const App = () => {
       </section>
 
       {/* Services Section */}
-      <section className="px-6 py-20 md:px-20 lg:px-32 bg-gradient-to-b from-black to-gray-900">
+      <section className="px-6 py-20 md:px-20 lg:px-32 bg-gradient from-black to-gray-900">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-4">
             My <span className="text-orange-500">Services</span>
@@ -269,10 +269,10 @@ const App = () => {
               </div>
             ))}
           </div>
-          <button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-md font-semibold transition flex items-center gap-2">
+          <a href='https://www.youtube.com/@Vizmer' target='_blank' className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-md font-semibold transition flex items-center gap-2 w-fit">
             <span>▶</span>
             Visit Youtube Channel
-          </button>
+          </a>
         </div>
       </section>
 
