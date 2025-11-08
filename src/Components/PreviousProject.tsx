@@ -25,9 +25,7 @@ const VideosLinks: string[] = [
   "https://www.youtube.com/watch?v=KNBRbCdg_uw",
   "https://www.youtube.com/watch?v=avUb7e9sofs",
   "https://www.youtube.com/watch?v=cH9eFzq9hZI",
-  "https://www.youtube.com/watch?v=G5xg5dKF1AQ",
-  "https://www.youtube.com/watch?v=UAiUufClZDY",
-  "https://www.youtube.com/watch?v=T__HKAJwRBk"
+  "https://www.youtube.com/watch?v=G5xg5dKF1AQ"
 ];
 
 const PreviousProject = () => {
