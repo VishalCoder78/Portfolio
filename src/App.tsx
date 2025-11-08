@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import emailjs from 'emailjs-com';
 import { Gamepad, ScissorsLineDashed, SparklesIcon, Ellipsis, Instagram, Youtube, Mail,  } from 'lucide-react';
 import { CameraIcon, DocumentTextIcon } from '@heroicons/react/24/solid';
+
 
 interface ServiceCardProps {
   icon: React.ReactNode;
@@ -21,6 +23,52 @@ interface VideoCardProps {
 }
 
 const App = () => {
+
+  const previousProjectsRef = React.useRef<HTMLDivElement | null>(null);
+
+const scrollToPreviousProjects = () => {
+  previousProjectsRef.current?.scrollIntoView({ behavior: 'smooth' });
+};
+
+  
+  const [showPopup, setShowPopup] = useState(false);
+
+const [formData, setFormData] = useState({
+  name: "",
+  email: "",
+  message: "",
+});
+
+const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  setFormData({ ...formData, [e.target.name]: e.target.value });
+};
+
+const sendEmail = (e: React.FormEvent) => {
+  e.preventDefault();
+
+  emailjs
+    .send(
+      "service_vishal13",   // 🔹 Replace with your actual Service ID from EmailJS
+      "template_0jg0wef",  // 🔹 Replace with your actual Template ID
+      {
+        from_name: formData.name,
+        reply_to: formData.email,
+        message: formData.message,
+      },
+      "6Zdv3Od5RYWm4yt0y"    // 🔹 Replace with your actual Public Key
+    )
+    .then(
+      (result) => {
+        alert("✅ Message sent successfully!");
+        setFormData({ name: "", email: "", message: "" });
+      },
+      (error) => {
+        alert("❌ Something went wrong. Please try again later.");
+      }
+    );
+};
+
+
   const services: ServiceCardProps[] = [
     {
       icon: <CameraIcon className="w-8 h-8" />,
@@ -87,38 +135,45 @@ const App = () => {
     }
   ];
 
-  const previousProjects: VideoCardProps[] = [
-    {
-      image: "https://csspicker.dev/api/image/?q=video+thumbnail+youtube&image_type=photo",
-      title: "Latest Cinematic Short Film - 2025",
-      description: "A behind-the-scenes look at creating cinematic short films with professional techniques"
-    },
-    {
-      image: "https://csspicker.dev/api/image/?q=minecraft+adventure+series&image_type=photo",
-      title: "Minecraft Adventure Series - Episode 1",
-      description: "Epic Minecraft adventure series with engaging gameplay and creative storytelling"
-    },
-    {
-      image: "https://csspicker.dev/api/image/?q=motion+graphics+showreel&image_type=photo",
-      title: "Motion Graphics Showreel 2025",
-      description: "Showcase of stunning motion graphics and visual effects work"
-    },
-    {
-      image: "https://csspicker.dev/api/image/?q=color+grading+tutorial&image_type=photo",
-      title: "Color Grading Tutorial - Cinematic Look",
-      description: "Learn professional color grading techniques to achieve cinematic looks"
-    },
-    {
-      image: "https://csspicker.dev/api/image/?q=story+structure+video&image_type=photo",
-      title: "Story Structure in Video Editing",
-      description: "Understanding the fundamentals of crafting compelling narratives"
-    },
-    {
-      image: "https://csspicker.dev/api/image/?q=3d+animation+process&image_type=photo",
-      title: "Behind the Scenes - 3D Animation Process",
-      description: "Explore the process of 3D animation production and creative techniques"
-    }
-  ];
+ const previousProjects: VideoCardProps[] = [
+  {
+    image: "https://img.youtube.com/vi/xy0YDd2FTa4/hqdefault.jpg",
+    title: "Documentary Trailer",
+    description: "Short trailer for my latest cinematic documentary",
+    link: "https://www.youtube.com/watch?v=xy0YDd2FTa4"
+  },
+  {
+    image: "https://img.youtube.com/vi/KNBRbCdg_uw/hqdefault.jpg",
+    title: "Cinematic Short Film",
+    description: "A creative short film edited for visual storytelling",
+    link: "https://www.youtube.com/watch?v=KNBRbCdg_uw"
+  },
+  {
+    image: "https://img.youtube.com/vi/avUb7e9sofs/hqdefault.jpg",
+    title: "Music Video Edit",
+    description: "Music video edited with transitions and effects",
+    link: "https://www.youtube.com/watch?v=avUb7e9sofs"
+  },
+  {
+    image: "https://img.youtube.com/vi/cH9eFzq9hZI/hqdefault.jpg",
+    title: "Music Video Edit",
+    description: "Music video edited with transitions and effects",
+    link: "https://www.youtube.com/watch?v=cH9eFzq9hZI"
+  },
+  {
+    image: "https://img.youtube.com/vi/G5xg5dKF1AQ/hqdefault.jpg",
+    title: "Music Video Edit",
+    description: "Music video edited with transitions and effects",
+    link: "https://www.youtube.com/watch?v=G5xg5dKF1AQ"
+  },
+  {
+    image: "https://img.youtube.com/vi/UAiUufClZDY/hqdefault.jpg",
+    title: "Music Video Edit",
+    description: "Music video edited with transitions and effects",
+    link: "https://www.youtube.com/watch?v=UAiUufClZDY"
+  },
+];
+
 
   return (
     <div className="bg-black text-white min-h-screen">
@@ -133,9 +188,13 @@ const App = () => {
               Transforming raw footage into compelling visual narratives and captivating stories that bring ideas to life through the power of editing
             </p>
             <div className="flex items-center gap-4">
-              <button className="bg-orange-500 hover:bg-gray-600 text-white px-6 py-3 rounded-md font-semibold transition cursor-pointer">
-                Get In Touch
-              </button>
+            <button
+            onClick={() => setShowPopup(true)}
+            className="bg-orange-500 hover:bg-gray-600 text-white px-6 py-3 rounded-md font-semibold transition cursor-pointer"
+            >
+            Get In Touch
+            </button>
+
               <div className="flex gap-3">
                 <a href='https://www.instagram.com/igv1.shal/?igsh=MThkOG9oMTR5anR3#' target='_blank' className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-600 transition">
                   <Instagram />
@@ -197,9 +256,13 @@ const App = () => {
               </h2>
               <p className="text-gray-400">Showcasing my latest video editing and creative work</p>
             </div>
-            <button className="border border-orange-500 text-orange-500 px-6 py-2 rounded-md hover:bg-orange-500 hover:text-white transition">
-              View All Projects
-            </button>
+            <button
+              onClick={scrollToPreviousProjects}
+              className="border border-orange-500 text-orange-500 px-6 py-2 rounded-md hover:bg-orange-500 hover:text-white transition"
+              >
+               View All Projects
+              </button>
+
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredProjects.map((project, index) => (
@@ -227,7 +290,11 @@ const App = () => {
       </section>
 
       {/* Previous Projects Section */}
-      <section className="px-6 py-20 md:px-20 lg:px-32 bg-gradient-to-b from-black to-gray-900">
+      <section
+  ref={previousProjectsRef}
+  className="px-6 py-20 md:px-20 lg:px-32 bg-gradient-to-b from-black to-gray-900"
+>
+
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-center mb-12">
             <div>
@@ -264,7 +331,10 @@ const App = () => {
                 <div className="p-4">
                   <h3 className="text-lg font-bold mb-2">{video.title}</h3>
                   <p className="text-gray-400 text-sm mb-3">{video.description}</p>
-                  <a href="#" className="text-orange-500 text-sm hover:underline">Watch on YouTube</a>
+                  <a href={video.link} target="_blank" className="text-orange-500 text-sm hover:underline">
+                     Watch on YouTube
+                  </a>
+
                 </div>
               </div>
             ))}
@@ -285,42 +355,85 @@ const App = () => {
           <p className="text-gray-400 text-center mb-12">
             Have a project in mind? Send me an enquiry and let's discuss how I can bring your vision to life.
           </p>
-          <form className="space-y-6">
-            <div>
-              <label className="block text-sm font-semibold mb-2">Name *</label>
-              <input 
-                type="text"
-                placeholder="Your full name"
-                className="w-full bg-gray-900 border border-gray-700 rounded-md px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 transition"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold mb-2">Address *</label>
-              <input 
-                type="email"
-                placeholder="Your address"
-                className="w-full bg-gray-900 border border-gray-700 rounded-md px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 transition"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold mb-2">Message *</label>
-              <textarea 
-                rows={6}
-                placeholder="Tell me about your project..."
-                className="w-full bg-gray-900 border border-gray-700 rounded-md px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 transition resize-none"
-              ></textarea>
-            </div>
-            <button 
-              type="submit"
-              className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-md font-semibold transition flex items-center justify-center gap-2"
-            >
-              <span>✉</span>
-              Send Enquiry
-            </button>
-          </form>
+          <form onSubmit={sendEmail} className="space-y-6">
+  <div>
+    <label className="block text-sm font-semibold mb-2">Name *</label>
+    <input
+      type="text"
+      name="name"
+      value={formData.name}
+      onChange={handleChange}
+      placeholder="Your full name"
+      className="w-full bg-gray-900 border border-gray-700 rounded-md px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 transition"
+      required
+    />
+  </div>
+
+  <div>
+    <label className="block text-sm font-semibold mb-2">Email *</label>
+    <input
+      type="email"
+      name="email"
+      value={formData.email}
+      onChange={handleChange}
+      placeholder="Your email"
+      className="w-full bg-gray-900 border border-gray-700 rounded-md px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 transition"
+      required
+    />
+  </div>
+
+  <div>
+    <label className="block text-sm font-semibold mb-2">Message *</label>
+    <textarea
+      name="message"
+      rows={6}
+      value={formData.message}
+      onChange={handleChange}
+      placeholder="Tell me about your project..."
+      className="w-full bg-gray-900 border border-gray-700 rounded-md px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 transition resize-none"
+      required
+    ></textarea>
+  </div>
+
+  <button
+    type="submit"
+    className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-md font-semibold transition flex items-center justify-center gap-2"
+  >
+    <span>✉</span>
+    Send Enquiry
+  </button>
+</form>
+
         </div>
       </section>
+
+      {showPopup && (
+  <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+    <div className="bg-[#0a0f1a] text-white rounded-xl p-8 shadow-2xl relative w-80 md:w-96 text-center border border-gray-700">
+      <button
+        onClick={() => setShowPopup(false)}
+        className="absolute top-3 right-3 text-gray-400 hover:text-white"
+      >
+        ✕
+      </button>
+
+      <h2 className="text-xl font-bold mb-4">Contact Me</h2>
+      <div className="flex flex-col items-center space-y-2">
+        <span className="text-orange-500 text-3xl">📞</span>
+        <h3 className="text-2xl font-semibold">9288341483</h3>
+        <p className="text-gray-400 text-sm">Call or message me directly</p>
+      </div>
+
+      <button
+        onClick={() => window.open('https://wa.me/919288341483', '_blank')}
+        className="mt-6 w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-md font-semibold flex items-center justify-center gap-2 transition"
+      >
+        💬 Chat on WhatsApp
+      </button>
     </div>
+  </div>
+)}
+  </div>
   );
 };
 
